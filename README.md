@@ -54,3 +54,7 @@ Excel workbooks are grouped in one dropdown. The Tasks dropdown includes the com
 - Tasks in the Tasks dropdown are grouped automatically by their project phase using the phase values in data.json.
 
 - Task updating now uses an on-page status dropdown with fixed status values, progress input, gap field, Save, and Cancel controls.
+
+
+## Universal task checklists
+Every task T01–T30 now has a checklist generated from its required evidence plus technical review, reviewer sign-off, approval, final-file control, evidence indexing, and archive/access verification. Checklist completion updates task progress automatically and is included in JSON export/import.
