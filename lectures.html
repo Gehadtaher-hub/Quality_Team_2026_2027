@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#2b2033">
+<title>Security & Cryptography Lectures</title>
+<style>
+:root{--deep:#2b2033;--burg:#725f76;--rose:#9c8199;--plum:#6f5b71;--gold:#d58f89;--blush:#f2cbc7;--paper:#fffafb;--line:#e4d1da;--ink:#2b2033;--muted:#746a73;--green:#63764a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 8% 0,#cbb0bd 0,transparent 28%),radial-gradient(circle at 94% 2%,#f2cbc7 0,transparent 30%),linear-gradient(145deg,#f2cbc7,#fffafb 52%,#eadde5);color:var(--ink);font:16px/1.58 Inter,Segoe UI,system-ui,sans-serif}
+header{background:linear-gradient(120deg,var(--deep),var(--burg) 62%,#d58f89);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--rose),var(--gold),#cbb0bd) 1;color:#fff;box-shadow:0 8px 28px #2b203340}
+.navbar{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #ffffff24}h1{font-size:clamp(22px,4vw,37px);margin:0}.sub{color:#f2cbc7;font:800 12px ui-monospace,monospace;letter-spacing:1px}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{padding:10px 13px;border:1px solid #cbb0bd;border-radius:12px;background:#fffafb;color:var(--deep);font-weight:800;text-decoration:none;box-shadow:0 4px 12px #2b203321}.nav a:hover{border-color:var(--gold);transform:translateY(-1px)}.nav a.active{color:#fff;background:linear-gradient(135deg,var(--burg),var(--plum));border-color:#d58f89}
+.hero{max-width:1180px;margin:auto;padding:48px 20px 42px}.hero .tag{display:inline-block;padding:6px 11px;border:1px solid #ffffff66;border-radius:999px;color:#f2cbc7}.hero h2{font-size:clamp(35px,6vw,67px);line-height:1;margin:17px 0 13px}.hero p{font-size:19px;max-width:800px;color:#f2cbc7}.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.stat{padding:12px 16px;background:#ffffff13;border:1px solid #ffffff2e;border-radius:12px}.stat b{font-size:21px}
+main{max-width:1180px;margin:28px auto;padding:0 16px 60px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}.search{width:min(500px,100%);padding:13px 16px;background:#fff;border:2px solid var(--line);border-radius:12px;font-size:16px}.search:focus{outline:3px solid #725f7630;border-color:var(--burg)}.notice{padding:10px 13px;background:#f2dfe4;border-left:5px solid var(--burg);border-radius:8px}
+.cards{display:grid;gap:17px}.lecture-card{display:grid;grid-template-columns:120px 1fr;background:var(--paper);border:1px solid #e4d1da;border-radius:18px;overflow:hidden;box-shadow:0 5px 20px #2b203312;transition:.25s}.lecture-card:hover{transform:translateY(-3px);box-shadow:0 11px 30px #2b203321}.number{display:grid;place-items:center;background:linear-gradient(145deg,var(--deep),var(--burg));color:#fff;font-size:43px;font-weight:900}.planned .number{background:linear-gradient(145deg,#70515a,#95747d)}.body{padding:22px}.topline{display:flex;justify-content:space-between;gap:9px;align-items:center;flex-wrap:wrap}.category{color:var(--rose);font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:12px}.status{padding:5px 9px;border-radius:999px;font-size:12px;font-weight:800}.ready-status{background:#e7eadc;color:#4c5d35}.planned-status{background:#eee5e7;color:#746a73}.body h2{color:var(--deep);margin:6px 0 8px;font-size:clamp(22px,3vw,28px)}.body p{margin:0}.features{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.features span{padding:5px 9px;border-radius:999px;background:#eadde5;color:var(--deep);font-size:13px}.open{display:inline-flex;align-items:center;gap:9px;padding:10px 14px;background:linear-gradient(135deg,var(--burg),var(--plum));color:#fff;border-radius:9px;text-decoration:none;font-weight:850}.open:hover{filter:brightness(.92)}.coming{display:inline-block;padding:9px 13px;background:#eee5e7;color:#746a73;border-radius:9px;font-weight:800}
+.template{margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:23px}.template h2{color:var(--deep);margin-top:0}.pipeline{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.pipeline span{padding:9px 11px;background:#eadde5;border:1px solid var(--line);border-radius:9px;font-weight:700}.lecture-actions{display:flex;gap:10px;flex-wrap:wrap}.presentation-open{border:0;font:inherit;cursor:pointer;background:linear-gradient(135deg,var(--rose),var(--gold))}
+.presentation-modal{position:fixed;inset:0;z-index:1000;padding:18px;background:#2b2033d9;display:none}.presentation-modal.open{display:flex}.presentation-dialog{width:min(1280px,100%);height:min(820px,100%);margin:auto;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 28px 80px #2b203370;display:flex;flex-direction:column}.presentation-head{padding:11px 14px 11px 18px;min-height:62px;background:linear-gradient(120deg,var(--deep),var(--burg));color:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.presentation-tools{display:flex;gap:8px;flex-wrap:wrap}.presentation-tools button,.presentation-tools a{padding:8px 11px;border:1px solid #cbb0bd;border-radius:9px;background:#fff;color:var(--deep);font-weight:800;text-decoration:none;cursor:pointer}.presentation-viewer{flex:1;min-height:0;background:#eee}.presentation-viewer iframe{display:block;width:100%;height:100%;border:0;background:#fff}body.presentation-opened{overflow:hidden}@media(max-width:680px){.presentation-modal{padding:5px}.presentation-dialog{height:100%;border-radius:10px}.presentation-head{align-items:flex-start}}
+footer{padding:24px;text-align:center;background:var(--deep);color:#cbb0bd}@media(max-width:680px){.lecture-card{grid-template-columns:1fr}.number{padding:12px;font-size:29px}.navbar{align-items:flex-start}.nav a{font-size:12px;padding:8px 9px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="navbar">
+    <div><h1>Security & Cryptography</h1><div class="sub">INTERACTIVE LECTURES</div></div>
+    <nav class="nav" aria-label="Course navigation"><a href="index.html">Ebook</a><a class="active" href="lectures.html">Lectures</a><a href="lab-manual.html">Lab Manual</a><a href="studio.html">Learning Activities</a></nav>
+  </div>
+  <div class="hero"><span class="tag">Based on crypto_ebook.pdf</span><h2>Lecture Library</h2><p>Book-aligned explanations, classroom visual slides, concept-specific simulations, prediction prompts, examples, activities, and formative assessment.</p><div class="stats"><div class="stat"><b>9</b><br>Book chapters</div><div class="stat"><b>2</b><br>Lectures available</div><div class="stat"><b>3 modes</b><br>Explanation · Slides · Simulation</div></div></div>
+</header>
+<main>
+  <div class="toolbar"><input id="search" class="search" type="search" placeholder="Search chapters or concepts…" oninput="filterLectures()"><div class="notice">Lectures 1 and 2 are ready and linked.</div></div>
+  <section class="cards" id="cards"><article class="lecture-card ready" data-search="introduction to information security security foundations cia triad, aaa, threats, vulnerabilities, attacks, osi security architecture, services, mechanisms, the network-security model, controls, policies, risk management, real-world incidents, activities, visual slides, simulations, and assessment.">
+      <div class="number">01</div>
+      <div class="body">
+        <div class="topline"><span class="category">Security foundations</span><div class="status ready-status">✓ Lecture available</div></div>
+        <h2>Introduction to Information Security</h2>
+        <p>CIA triad, AAA, threats, vulnerabilities, attacks, OSI security architecture, services, mechanisms, the network-security model, controls, policies, risk management, real-world incidents, activities, visual slides, simulations, and assessment.</p>
+        <div class="features"><span>📖 Explanation</span><span>▣ Visual slides</span><span>🧪 Simulator</span><span>✓ Assessment</span></div>
+        <div class="lecture-actions"><a class="open" href="Lecture_01_Information_Security.html">Open Interactive Lecture <span>→</span></a><button class="open presentation-open" type="button" onclick="openPresentation(0)">View Presentation <span>▣</span></button></div>
+      </div>
+    </article><article class="lecture-card ready" data-search="fundamentals of cryptography cryptographic foundations cryptographic terminology, cryptography and cryptanalysis, the basic cryptographic process, kerckhoffs’s principle, security goals, system types, attack models, brute force, keys, applications, limitations, and common mistakes.">
+      <div class="number">02</div>
+      <div class="body">
+        <div class="topline"><span class="category">Cryptographic foundations</span><div class="status ready-status">✓ Lecture available</div></div>
+        <h2>Fundamentals of Cryptography</h2>
+        <p>Cryptographic terminology, cryptography and cryptanalysis, the basic cryptographic process, Kerckhoffs’s principle, security goals, system types, attack models, brute force, keys, applications, limitations, and common mistakes.</p>
+        <div class="features"><span>📖 Explanation</span><span>▣ Visual slides</span><span>🧪 Simulator</span><span>✓ Assessment</span></div>
+        <div class="lecture-actions"><a class="open" href="https://docs.google.com/presentation/d/e/2PACX-1vRJbXTCJ2pzlRH2WK4Wsc0wkWnvl0Ta09m_Wysu4UYIdRguZgpfkiUxDVV2SkykHyLa56Bk-_lrXg5T/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank" rel="noopener noreferrer">Open Interactive Lecture <span>→</span></a><button class="open presentation-open" type="button" onclick="openPresentation(1)">View Presentation <span>▣</span></button></div>
+      </div>
+    </article><article class="lecture-card planned" data-search="classical cryptography and information hiding classical techniques substitution and transposition, caesar, monoalphabetic substitution, playfair, hill, vigenère, vernam, one-time pad, rail fence, columnar transposition, frequency analysis, and steganography.">
+      <div class="number">03</div>
+      <div class="body">
+        <div class="topline"><span class="category">Classical techniques</span><div class="status planned-status">In development</div></div>
+        <h2>Classical Cryptography and Information Hiding</h2>
+        <p>Substitution and transposition, Caesar, monoalphabetic substitution, Playfair, Hill, Vigenère, Vernam, one-time pad, Rail Fence, columnar transposition, frequency analysis, and steganography.</p>
+        <div class="features"><span>📖 Explanation</span><span>▣ Visual slides</span><span>🧪 Simulator</span><span>✓ Assessment</span></div>
+        <span class="coming">Coming next</span>
+      </div>
+    </article><article class="lecture-card planned" data-search="mathematical foundations of cryptography mathematics modular arithmetic, primes, gcd, the extended euclidean algorithm, modular inverses, euler’s phi function, fermat’s and euler’s theorems, modular exponentiation, generators, discrete logarithms, crt, algebraic structures, and matrices.">
+      <div class="number">04</div>
+      <div class="body">
+        <div class="topline"><span class="category">Mathematics</span><div class="status planned-status">In development</div></div>
+        <h2>Mathematical Foundations of Cryptography</h2>
+        <p>Modular arithmetic, primes, GCD, the extended Euclidean algorithm, modular inverses, Euler’s phi function, Fermat’s and Euler’s theorems, modular exponentiation, generators, discrete logarithms, CRT, algebraic structures, and matrices.</p>
+        <div class="features"><span>📖 Explanation</span><span>▣ Visual slides</span><span>🧪 Simulator</span><span>✓ Assessment</span></div>
+        <span class="coming">Coming next</span>
+      </div>
+    </article><article class="lecture-card planned" data-search="symmetric key cryptography modern symmetric encryption stream and block ciphers, des, triple des, aes, block-cipher modes, padding, ivs, nonces, counters, gcm, authenticated encryption, randomness, key distribution, key management, and implementation mistakes.">
+      <div class="number">05</div>
+      <div class="body">
+        <div class="topline"><span class="category">Modern symmetric encryption</span><div class="status planned-status">In development</div></div>
+        <h2>Symmetric Key Cryptography</h2>
+        <p>Stream and block ciphers, DES, Triple DES, AES, block-cipher modes, padding, IVs, nonces, counters, GCM, authenticated encryption, randomness, key distribution, key management, and implementation mistakes.</p>
+        <div class="features"><span>📖 Explanation</span><span>▣ Visual slides</span><span>🧪 Simulator</span><span>✓ Assessment</span></div>
+        <span class="coming">Coming next</span>
+      </div>
+    </article><article class="lecture-card planned" data-search="public key cryptography asymmetric cryptography public and private keys, rsa, diffie–hellman, forward secrecy, kdfs, elgamal, elliptic-curve cryptography, hybrid encryption, private-key protection, implementation risks, and side channels.">
+      <div class="number">06</div>
+      <div class="body">
+        <div class="topline"><span class="category">Asymmetric cryptography</span><div class="status planned-status">In development</div></div>
+        <h2>Public Key Cryptography</h2>
+        <p>Public and private keys, RSA, Diffie–Hellman, forward secrecy, KDFs, ElGamal, elliptic-curve cryptography, hybrid encryption, private-key protection, implementation risks, and side channels.</p>
+        <div class="features"><span>📖 Explanation</span><span>▣ Visual slides</span><span>🧪 Simulator</span><span>✓ Assessment</span></div>
+        <span class="coming">Coming next</span>
+      </div>
+    </article><article class="lecture-card planned" data-search="cryptographic hash functions hashing and authentication hash properties, avalanche effect, birthday effect, sha families, encoding versus encryption, mac, hmac, hkdf, password hashing, salts, peppers, work factors, and password attacks.">
+      <div class="number">07</div>
+      <div class="body">
+        <div class="topline"><span class="category">Hashing and authentication</span><div class="status planned-status">In development</div></div>
+        <h2>Cryptographic Hash Functions</h2>
+        <p>Hash properties, avalanche effect, birthday effect, SHA families, encoding versus encryption, MAC, HMAC, HKDF, password hashing, salts, peppers, work factors, and password attacks.</p>
+        <div class="features"><span>📖 Explanation</span><span>▣ Visual slides</span><span>🧪 Simulator</span><span>✓ Assessment</span></div>
+        <span class="coming">Coming next</span>
+      </div>
+    </article><article class="lecture-card planned" data-search="digital signatures and certificates signatures and pki digital-signature processes, rsa-pss, dsa, ecdsa, eddsa, certificates, csrs, extensions, pki, certificate authorities, trust chains, validation, revocation, https, and code signing.">
+      <div class="number">08</div>
+      <div class="body">
+        <div class="topline"><span class="category">Signatures and PKI</span><div class="status planned-status">In development</div></div>
+        <h2>Digital Signatures and Certificates</h2>
+        <p>Digital-signature processes, RSA-PSS, DSA, ECDSA, EdDSA, certificates, CSRs, extensions, PKI, certificate authorities, trust chains, validation, revocation, HTTPS, and code signing.</p>
+        <div class="features"><span>📖 Explanation</span><span>▣ Visual slides</span><span>🧪 Simulator</span><span>✓ Assessment</span></div>
+        <span class="coming">Coming next</span>
+      </div>
+    </article><article class="lecture-card planned" data-search="authentication and access control identity and authorization identification, authentication, mfa, biometrics, dac, mac, rbac, abac, least privilege, account lifecycle, sso, oauth, openid connect, sessions, monitoring, and auditing.">
+      <div class="number">09</div>
+      <div class="body">
+        <div class="topline"><span class="category">Identity and authorization</span><div class="status planned-status">In development</div></div>
+        <h2>Authentication and Access Control</h2>
+        <p>Identification, authentication, MFA, biometrics, DAC, MAC, RBAC, ABAC, least privilege, account lifecycle, SSO, OAuth, OpenID Connect, sessions, monitoring, and auditing.</p>
+        <div class="features"><span>📖 Explanation</span><span>▣ Visual slides</span><span>🧪 Simulator</span><span>✓ Assessment</span></div>
+        <span class="coming">Coming next</span>
+      </div>
+    </article></section>
+  <section class="template"><h2>Standard lecture design</h2><div class="pipeline"><span>Learning outcomes</span>→<span>Full explanation</span>→<span>Examples</span>→<span>Visual slides</span>→<span>Prediction prompts</span>→<span>Simulator</span>→<span>Knowledge checks</span>→<span>Final assessment</span></div></section>
+</main>
+<div class="presentation-modal" id="presentationModal" role="dialog" aria-modal="true" aria-labelledby="presentationTitle">
+  <div class="presentation-dialog">
+    <div class="presentation-head"><strong id="presentationTitle">Lecture 1 Presentation</strong><div class="presentation-tools"><a id="presentationFull" target="_blank" rel="noopener">Open full screen</a><button type="button" onclick="closePresentation()">Close ✕</button></div></div>
+    <div class="presentation-viewer" id="presentationViewer"></div>
+  </div>
+</div>
+<footer>Security & Cryptography Course • Gehad Taher</footer>
+<script>
+const PRESENTATIONS=[
+  {
+    title:'Lecture 1 Presentation',
+    embed:'https://docs.google.com/presentation/d/e/2PACX-1vTYlf3K_ibckD3Pd38UL2W1EUdkTUDAQnwOaDBePbcbseDyKbyp57G-SgrdVKTwWg/pubembed?start=false&loop=false&delayms=3000',
+    full:'https://docs.google.com/presentation/d/e/2PACX-1vTYlf3K_ibckD3Pd38UL2W1EUdkTUDAQnwOaDBePbcbseDyKbyp57G-SgrdVKTwWg/pub?start=false&loop=false&delayms=3000'
+  },
+  {
+    title:'Lecture 2 Presentation',
+    embed:'https://docs.google.com/presentation/d/e/2PACX-1vRJbXTCJ2pzlRH2WK4Wsc0wkWnvl0Ta09m_Wysu4UYIdRguZgpfkiUxDVV2SkykHyLa56Bk-_lrXg5T/pubembed?start=false&loop=false&delayms=3000',
+    full:'https://docs.google.com/presentation/d/e/2PACX-1vRJbXTCJ2pzlRH2WK4Wsc0wkWnvl0Ta09m_Wysu4UYIdRguZgpfkiUxDVV2SkykHyLa56Bk-_lrXg5T/pub?start=false&loop=false&delayms=3000'
+  }
+];
+function filterLectures(){const q=search.value.toLowerCase().trim();document.querySelectorAll('.lecture-card').forEach(card=>card.style.display=card.dataset.search.includes(q)?'grid':'none')}
+function openPresentation(index){const presentation=PRESENTATIONS[index];if(!presentation)return;const modal=document.getElementById('presentationModal'),viewer=document.getElementById('presentationViewer');document.getElementById('presentationTitle').textContent=presentation.title;document.getElementById('presentationFull').href=presentation.full;viewer.innerHTML=`<iframe src="${presentation.embed}" title="${presentation.title}" allowfullscreen loading="eager"></iframe>`;modal.classList.add('open');document.body.classList.add('presentation-opened')}
+function closePresentation(){document.getElementById('presentationModal').classList.remove('open');document.getElementById('presentationViewer').innerHTML='';document.body.classList.remove('presentation-opened')}
+document.getElementById('presentationModal').addEventListener('click',e=>{if(e.target.id==='presentationModal')closePresentation()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closePresentation()});
+</script>
+</body>
+</html>
