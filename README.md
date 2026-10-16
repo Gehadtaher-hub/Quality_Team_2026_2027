@@ -29,3 +29,13 @@ GitHub Pages موقع ثابت، لذلك لا توجد قاعدة بيانات 
 
 ## Excel Master Tracker المضمّن
 تمت إضافة المصنف المستضاف على SharePoint داخل صفحة مستقلة. العرض داخل iframe للمتابعة، بينما التحرير والحفظ يتمان من خلال زر "فتح وتحرير في Excel" وبصلاحيات SharePoint الممنوحة للأعضاء.
+
+
+## NARS ↔ ARS Consistency Matrix
+أضيفت صفحة مستقلة للمصفوفة المنشورة على SharePoint، وتشمل عرضًا مضمّنًا، زر تحرير في Excel، وملخص تغطية المسودة. تستخدم الصفحة النصوص والترقيم الرسميين لـNARS لقطاع الحاسبات والمعلومات، إصدار أكتوبر 2010. ويجب مراجعة أحكام الربط واعتمادها مؤسسيًا قبل النسخة النهائية.
+
+
+## ARS–PLO Alignment Matrix
+Includes 34 Software Engineering ARS statements, 12 proposed PLOs, a binary coverage map, summary indicators, and review instructions. The PLO wording remains draft until matched to the approved Program Specification.
+
+The ARS–PLO workbook is embedded from SharePoint. Editing is performed through Excel for the web using institutional permissions.
