@@ -39,3 +39,10 @@ GitHub Pages موقع ثابت، لذلك لا توجد قاعدة بيانات 
 Includes 34 Software Engineering ARS statements, 12 proposed PLOs, a binary coverage map, summary indicators, and review instructions. The PLO wording remains draft until matched to the approved Program Specification.
 
 The ARS–PLO workbook is embedded from SharePoint. Editing is performed through Excel for the web using institutional permissions.
+
+
+## Interface corrections
+- Checkbox controls no longer inherit full input width.
+- Sticky table headings remain inside their table container and no longer cover the first row.
+- Workbook full-screen controls now use the browser Fullscreen API on the embedded frame instead of opening SharePoint in another tab.
+- Navigation wraps on wide screens and scrolls horizontally on small screens so matrix tabs remain reachable.
