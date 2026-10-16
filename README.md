@@ -46,3 +46,11 @@ The ARS–PLO workbook is embedded from SharePoint. Editing is performed through
 - Sticky table headings remain inside their table container and no longer cover the first row.
 - Workbook full-screen controls now use the browser Fullscreen API on the embedded frame instead of opening SharePoint in another tab.
 - Navigation wraps on wide screens and scrolls horizontally on small screens so matrix tabs remain reachable.
+
+
+## Dropdown navigation
+Excel workbooks are grouped in one dropdown. The Tasks dropdown includes the complete Master Tracker, T01–T30 task-detail views, and the T01 closure checklist.
+
+- Tasks in the Tasks dropdown are grouped automatically by their project phase using the phase values in data.json.
+
+- Task updating now uses an on-page status dropdown with fixed status values, progress input, gap field, Save, and Cancel controls.
